@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Post, Body, Get, Render } from '@nestjs/common';
+import { Controller, Post, Body, Get, Render, BadRequestException,Redirect } from '@nestjs/common';
 import { UsersService } from './users.service';
+import * as bcrypt from "bcrypt";
 
 
 @Controller('users')
@@ -12,6 +13,7 @@ export class UsersController {
     getSignupPage( ) {
         return "";
     }
+    
     @Post('signup')
     async signup(
         @Body('full_name') full_name: string,
@@ -28,6 +30,33 @@ export class UsersController {
         }
         const new_user = await this.userService.signup(full_name,email,phone,password,longitude,latitude)  ;
         return {message:"success signup",new_user}; 
+    }
+
+
+    @Get('login')
+    @Render('login')
+    getLoginPage() {
+        return '';
+    }
+    @Post('login')
+    @Redirect('/plants/1', 302) // Default redirect in case no return value overrides it
+    async login(
+        @Body('email') email: string,
+        @Body('password') password: string,
+    ) {
+        const user = await this.userService.findUserByEmail(email);
+
+        if (!user) {
+            throw new BadRequestException('Invalid email.');
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            throw new BadRequestException('Invalid password.');
+        }
+
+        // Redirect explicitly (overrides the default @Redirect path if needed)
+        return { url: '/plants/2' };
     }
     }
 

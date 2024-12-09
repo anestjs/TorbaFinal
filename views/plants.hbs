@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plants List</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    :root {
+      --white: #e9e9e9;
+      --gray: #333;
+      --blue: #0367a6;
+      --lightblue: #008997;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      position: relative;
+    }
+
+    body {
+      background-color: var(--white);
+      background: url("/images/background.jpg");
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .blurred-background {
+      background-color: rgba(0, 0, 0, 0.63);  /* Dark background with opacity */
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      backdrop-filter: blur(2px);  /* Apply the blur effect */
+      z-index: -1;  /* Ensures that the content appears above the background */
+    }
+
+    .plant-card {
+      background-color: var(--white);
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      transition: transform 0.2s ease;
+      z-index: 1;
+    }
+
+    .plant-card:hover {
+      transform: scale(1.05);
+    }
+
+    .navbar {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 1rem;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: bold;
+    }
+
+    .footer {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 1rem;
+      text-align: center;
+      color: #fff;
+    }
+
+    main {
+      z-index: 10; /* Ensure content is above the blurred background */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background blur effect -->
+  <div class="blurred-background"></div>
+
+  <!-- Navbar -->
+  <header class="navbar absolute top-0 left-0 w-full">
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="#" class="text-2xl">تربة <i class="fas fa-leaf mr-2"></i></a>
+
+      <div>
+        <a href="#" class="hover:text-blue-500">Home</a>
+        <a href="#plants" class="hover:text-blue-500">Plants</a>
+        <a href="#contact" class="hover:text-blue-500">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-12">
+
+<form method="POST" action="recommendation.php" class="p-6 bg-white rounded-lg shadow-lg mt-12">
+  <!-- Sunlight Selection -->
+  <label for="sunlight" class="block text-sm font-medium text-gray-700">Sunlight</label>
+  <select name="sunlight" id="sunlight" class="mt-1 p-2 w-full border border-gray-300 rounded-md">
+    <option value="Full Sun">Full Sun</option>
+    <option value="Partial Sun">Partial Sun</option>
+    <option value="Shade">Shade</option>
+  </select>
+
+  <!-- Watering Needs Selection -->
+  <label for="water" class="block text-sm font-medium text-gray-700 mt-4">Watering Needs</label>
+  <select name="water" id="water" class="mt-1 p-2 w-full border border-gray-300 rounded-md">
+    <option value="Low">Low</option>
+    <option value="Moderate">Moderate</option>
+    <option value="High">High</option>
+  </select>
+
+  <!-- Climate Selection -->
+  <label for="climate" class="block text-sm font-medium text-gray-700 mt-4">Climate</label>
+  <select name="climate" id="climate" class="mt-1 p-2 w-full border border-gray-300 rounded-md">
+    <option value="Desert">Desert</option>
+    <option value="Tropical">Tropical</option>
+    <option value="Temperate">Temperate</option>
+  </select>
+
+  <!-- Soil pH Selection -->
+  <label for="ph" class="block text-sm font-medium text-gray-700 mt-4">Soil pH</label>
+  <select name="ph" id="ph" class="mt-1 p-2 w-full border border-gray-300 rounded-md">
+    <option value="Acidic">Acidic (pH < 6)</option>
+    <option value="Neutral">Neutral (pH 6-7)</option>
+    <option value="Alkaline">Alkaline (pH > 7)</option>
+  </select>
+
+  <!-- Plant Type -->
+  <label for="plant_type" class="block text-sm font-medium text-gray-700 mt-4">Plant Type</label>
+  <select name="plant_type" id="plant_type" class="mt-1 p-2 w-full border border-gray-300 rounded-md">
+    <option value="Flower">Flower</option>
+    <option value="Tree">Tree</option>
+    <option value="Shrub">Shrub</option>
+    <option value="Vegetable">Vegetable</option>
+    <option value="Herb">Herb</option>
+  </select>
+
+  <!-- Temperature Range -->
+  <label for="temperature" class="block text-sm font-medium text-gray-700 mt-4">Temperature Range</label>
+  <select name="temperature" id="temperature" class="mt-1 p-2 w-full border border-gray-300 rounded-md">
+    <option value="Cool">Cool</option>
+    <option value="Warm">Warm</option>
+    <option value="Hot">Hot</option>
+  </select>
+
+  <!-- Space Requirements -->
+  <label for="space" class="block text-sm font-medium text-gray-700 mt-4">Space Requirements</label>
+  <select name="space" id="space" class="mt-1 p-2 w-full border border-gray-300 rounded-md">
+    <option value="Indoor">Indoor</option>
+    <option value="Outdoor">Outdoor</option>
+    <option value="Both">Both</option>
+  </select>
+
+  <!-- Maintenance Level -->
+  <label for="maintenance" class="block text-sm font-medium text-gray-700 mt-4">Maintenance Level</label>
+  <select name="maintenance" id="maintenance" class="mt-1 p-2 w-full border border-gray-300 rounded-md">
+    <option value="Low">Low</option>
+    <option value="Moderate">Moderate</option>
+    <option value="High">High</option>
+  </select>
+
+  <div class="flex justify-center mt-4">
+    <button type="submit" class="p-2 bg-green-500 text-white rounded-md">Get Recommendations</button>
+  </div>
+</form>
+
+
+    <h1 class="text-4xl font-bold text-center text-white mb-8 mt-10">PLANTS LIST</h1>
+
+    {{#if error}}
+      <p class="text-red-500 text-center">{{error}}</p>
+    {{else}}
+      {{#if plants}}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          {{#each plants}}
+            <div class="plant-card">
+              <h2 class="text-xl font-semibold text-gray-800 mb-2">Plant : {{this.common_name}}</h2>
+              <p class="text-sm text-gray-600">Scientific Name: 
+                {{#each this.scientific_name}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+              </p>
+              <p class="text-sm text-gray-600">Other Names: 
+                {{#each this.other_name}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+              </p>
+              <p class="text-sm text-gray-600">Cycle: {{this.cycle}}</p>
+              <p class="text-sm text-gray-600">Watering: {{this.watering}}</p>
+              <p class="text-sm text-gray-600">Sunlight: 
+                {{#each this.sunlight}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+              </p>
+              <img src="{{this.default_image.thumbnail}}" alt="Image of {{this.common_name}}" class="w-full h-48 object-cover rounded-lg mt-4">
+            </div>
+          {{/each}}
+        </div>
+      {{else}}
+        <p class="text-center text-gray-700">No plants found!</p>
+      {{/if}}
+    {{/if}}
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2024 torba. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

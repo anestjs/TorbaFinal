@@ -22,7 +22,7 @@
     
 
 </head>
-<body>
+<body id="signupbody">
     {{#if message}}
         <h6>{{message}}</h6> <!-- Show the message after form submission -->
     {{/if}}
@@ -56,7 +56,7 @@
         </form>
         <!-- Overlay -->
         <div class="container__overlay">
-            <div class="overlay">
+            <div class="overlay overlaysignup">
                 <div class="overlay__panel overlay--left">
                     <button class="btn" id="signIn">Next</button>
                 </div>

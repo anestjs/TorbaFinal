@@ -35,6 +35,8 @@ body {
 	place-items: center;
 }
 
+
+
 .form__title {
 	font-weight: 300;
 	margin: 0;
@@ -106,12 +108,7 @@ body {
 }
 
 .overlay {
-	background-color: var(--lightblue);
-	background: url("/images/tmp.jpg");
-	background-attachment: fixed;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
+
 	height: 100%;
 	left: -100%;
 	position: relative;
@@ -119,6 +116,28 @@ body {
 	transition: transform 0.6s ease-in-out;
 	width: 200%;
 }
+
+.overlaylogin {
+	background: url("/images/tmp2.jpg");
+	background-color: var(--lightblue);
+
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+
+.overlaysignup{
+	background: url("/images/tmp.jpg");
+	background-color: var(--lightblue);
+
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
 
 .container.right-panel-active .overlay {
 	transform: translateX(50%);

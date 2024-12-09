@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to Torba</title>
+
+    <!-- Use the same CSS -->
+    <link rel="stylesheet" href="/css/signup.css">
+</head>
+<body id="loginbody">
+    {{#if message}}
+        <h6>{{message}}</h6> <!-- Show the message after form submission -->
+    {{/if}}
+    <div class="container right-panel-active">
+        <!-- Login -->
+        <form action="/users/login" method="post">
+            <div class="container__form container--signup">
+                <div class="form" id="loginForm">
+                    <h2 class="form__title">Login to Your Account</h2>
+                    <input type="email" placeholder="Email" class="input" name="email" required />
+                    <input type="password" placeholder="Password" class="input" name="password" required />
+                    <button class="btn" type="submit">Login</button>
+                </div>
+            </div>
+        </form>
+        <!-- Overlay -->
+        <div class="container__overlay">
+            <div class="overlay overlaylogin">
+                <div class="overlay__panel overlay--left">
+                    <a  href="/users/signup">
+                    <button class="btn">
+                        Back to Sign Up
+                    </button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

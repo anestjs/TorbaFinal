@@ -13,6 +13,7 @@ export class User extends Document {
     full_name: string;
     @Prop({ required: true })
     phone: string;
+    
     @Prop({ required: true })
     longitude: number;
     @Prop({ required: true })

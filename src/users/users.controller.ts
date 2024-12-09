@@ -27,6 +27,7 @@ export class UsersController {
             throw new Error("");
         }
         const new_user = await this.userService.signup(full_name,email,phone,password,longitude,latitude)  ;
+        
         return {message:"success signup",new_user}; 
     }
     }

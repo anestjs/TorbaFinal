@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up in Torba</title>
+    
+    <!-- map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="crossorigin=""/>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+
+    <link rel="stylesheet" href="/css/signup.css">
+
+    
+
+</head>
+<body>
+    {{#if message}}
+        <h6>{{message}}</h6> <!-- Show the message after form submission -->
+    {{/if}}
+    <div class="container right-panel-active">
+        <!-- Sign Up -->
+        <form action="/users/signup" method="post">
+        <div class="container__form container--signup">
+            <div  class="form" id="signupForm">
+                <h2 class="form__title">Create Your Account</h2>
+                <!--input type="text" placeholder="User" class="input" /-->
+                <input type="text" placeholder="Full name" class="input" name="full_name" required />
+                <input type="email" placeholder="Email" class="input" name="email" required/>
+                <input type="text" placeholder="Phone Number" class="input" name="phone" required/>
+                <input type="password" placeholder="Password" class="input" name="password" required/>
+
+                <input type="number" id="longitude" name="longitude" step="any" required hidden />
+                <input type="number" id="latitude" name="latitude" step="any" required hidden/>
+
+            </div>
+        </div>
+    
+        <!-- Sign In -->
+        <div class="container__form container--signin">
+            <div action="#" class="form" id="form2">
+                <h2 class="form__title">Choose your land area</h2>
+                <div id="map"></div>   
+                <!--div id="coordinates">Click on the map to see the coordinates!</div-->             
+                <button class="btn" type="submit">Sign Up</button>
+            </div>
+        </div>
+        </form>
+        <!-- Overlay -->
+        <div class="container__overlay">
+            <div class="overlay">
+                <div class="overlay__panel overlay--left">
+                    <button class="btn" id="signIn">Next</button>
+                </div>
+                <div class="overlay__panel overlay--right">
+                    <button class="btn" id="signUp">Previous</button>
+                </div>
+            </div>
+        </div>
+
+       
+    </div>
+        <script src="/js/signup.js"></script>
+        
+        <script>
+            // Initialize the map
+            var map = L.map('map').setView([33.5, -7.5], 10);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+
+            var marker = L.marker([33.5, -7.5]).addTo(map)
+                .bindPopup('You are here')
+                .openPopup();
+
+
+            var geocoder = L.Control.geocoder({
+                defaultMarkGeocode: false // enelver automatic marker  
+            })
+            .on('markgeocode', function (e) {
+                var latlng = e.geocode.center;
+
+
+                map.setView(latlng, 13); 
+                marker.setLatLng(latlng)
+                    .bindPopup(`Search result:<br>Latitude: ${latlng.lat.toFixed(5)}<br>Longitude: ${latlng.lng.toFixed(5)}`)
+                    .openPopup();
+            })
+            .addTo(map);
+
+            map.on('click', function (e) {
+                var lat = e.latlng.lat;
+                var lng = e.latlng.lng;
+
+                marker.setLatLng([lat, lng])  
+                    .bindPopup(`You clicked at:<br>Latitude: ${lat.toFixed(5)}<br>Longitude: ${lng.toFixed(5)}`)
+                    .openPopup();
+
+                document.getElementById('latitude').value = lat;
+                document.getElementById('longitude').value = lng;
+            });
+        </script>
+
+</body>
+</html>

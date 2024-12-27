@@ -7,6 +7,13 @@ import { PlantsService } from './plants.service';
 export class PlantsController {
     constructor(private readonly PlantsService: PlantsService) {}
 
+
+    @Get("fetch-save")
+    async fecthSavePlants(){
+        await this.PlantsService.savePlants();
+        return { message : "Plants from 1 to 4 saved successfully in the db !" };
+    }
+
     // async pour les operations that take time and can block the execution of other tasks such as database operations and api fetching data
     @Get(":page")
     @Render('plants') 

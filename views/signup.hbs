@@ -40,6 +40,7 @@
 
                 <input type="number" id="longitude" name="longitude" step="any" required hidden />
                 <input type="number" id="latitude" name="latitude" step="any" required hidden/>
+                <input type="number" id="land_area" name="land_area" step="any" required hidden/>
 
             </div>
         </div>
@@ -99,15 +100,17 @@
             .addTo(map);
 
             map.on('click', function (e) {
+
                 var lat = e.latlng.lat;
                 var lng = e.latlng.lng;
-
+                let land_area = prompt("Please enter your lands area in hectares ")
                 marker.setLatLng([lat, lng])  
                     .bindPopup(`You clicked at:<br>Latitude: ${lat.toFixed(5)}<br>Longitude: ${lng.toFixed(5)}`)
                     .openPopup();
 
                 document.getElementById('latitude').value = lat;
                 document.getElementById('longitude').value = lng;
+                document.getElementById('land_area').value = land_area;
             });
         </script>
 

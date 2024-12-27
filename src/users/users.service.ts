@@ -12,7 +12,7 @@ export class UsersService {
 
     constructor(@InjectModel('users') private readonly users: Model<User>) { }
 
-    async signup(full_name:string,email: string,phone:string, password: string,longitude:number, latitude:number) {
+    async signup(full_name:string,email: string,phone:string, password: string,longitude:number, latitude:number, land_area:number) {
         // const existing_user = await this.users.findOne({ email });  
         // if (existing_user) {
         //     throw new Error("Email is already in use");
@@ -27,7 +27,8 @@ export class UsersService {
             phone,
             password:hashed_password,
             longitude,
-            latitude
+            latitude,
+            land_area
         });
 
         await new_user.save();

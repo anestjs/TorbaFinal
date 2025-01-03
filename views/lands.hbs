@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Lands</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    /* Reuse the same styles as in the Plants page */
+    body {
+      background-color: var(--white);
+      background: url("/images/background.jpg");
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .blurred-background {
+      background-color: rgba(0, 0, 0, 0.63);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      backdrop-filter: blur(2px);
+      z-index: -1;
+    }
+
+    .land-card {
+      background-color: var(--white);
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      transition: transform 0.2s ease;
+    }
+
+    .land-card:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <!-- Background blur effect -->
+  <div class="blurred-background"></div>
+
+  <!-- Navbar -->
+  <header class="navbar absolute top-0 left-0 w-full z-50">
+  <div class="container mx-auto flex justify-between items-center">
+    <a href="#" class="text-2xl">تربة <i class="fas fa-leaf mr-2"></i></a>
+
+    <div>
+      <a href="#" class="hover:text-blue-500">Home</a>
+      <a href="#plants" class="hover:text-blue-500">Plants</a>
+      <a href="/users/lands" class="hover:text-blue-500">My Lands</a>
+      <a href="#contact" class="hover:text-blue-500">Contact</a>
+    </div>
+  </div>
+</header>
+  <!-- Main content -->
+  <main class="container mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold text-center text-white mb-8">My Lands</h1>
+
+    {{#if lands.length}}
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        {{#each lands}}
+          <div class="land-card">
+            <h2 class="text-xl font-semibold text-gray-800 mb-2">Land ID: {{this.id}}</h2>
+            <p class="text-sm text-gray-600">Latitude: {{this.latitude}}</p>
+            <p class="text-sm text-gray-600">Longitude: {{this.longitude}}</p>
+            <p class="text-sm text-gray-600">Land Area: {{this.land_area}} sq. meters</p>
+            <p class="text-sm text-gray-600">Soil pH: {{this.soil_ph}}</p>
+          </div>
+        {{/each}}
+      </div>
+    {{else}}
+      <p class="text-center text-gray-700">You have no lands registered yet!</p>
+    {{/if}}
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2024 torba. All rights reserved.</p>
+  </footer>
+</body>
+</html>

@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get,Render } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -9,4 +9,15 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+
+
+  @Get()
+  @Render("index")
+  getIndex() {
+    return {
+      title: "Landing Page",
+      description: "This is the index page",
+    };
+  }
+
 }

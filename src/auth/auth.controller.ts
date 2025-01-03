@@ -45,8 +45,7 @@ export class AuthController {
     const token = req.user;
     // Replace with real token generation logic
 
-    console.log(token);
-    
+  
     // Set the token in a cookie
     res.cookie('jwt', token, {
       httpOnly: true,
@@ -54,10 +53,11 @@ export class AuthController {
     });
 
     // Redirect the user after successful login
-    return res.redirect(`/auth/status-proxy`);
+    return res.redirect(`/auth/dashboard`);
   }
 
   @Get('dashboard')
+  @UseGuards(JwtAuthGuard)
   @Render('dashboard') // Render the 'lands' HBS view
   async getLandsPage() {
    
